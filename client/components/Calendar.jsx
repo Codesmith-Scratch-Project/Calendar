@@ -20,11 +20,11 @@ class Calendar extends React.Component {
       days.push(<Day key={i} id={i} name={dayNames[i]} />)
     }
 
-    <div>
+    <div className="day">
         {days}
     </div>
 
   }
 }
 
-default export Calendar;
+export default Calendar;
