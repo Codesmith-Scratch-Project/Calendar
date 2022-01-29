@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.css'
+import MainContainer from './containers/MainContainer.jsx';
 
 
 
@@ -12,7 +13,9 @@ class App extends React.Component {
 
 
   render() {
-    return <h1>Welcome to Calendar</h1>;
+    return (
+      <MainContainer />
+    );
   }
 }
 
