@@ -5,7 +5,10 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+//require routers
+const eventRouter = require(path.resolve(__dirname, './routes/events.js'));
 
+//Handles parsing request body
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -15,6 +18,9 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
 });
+
+//route handlers
+app.use('/api/calendar/:userid');
 
 //Global error handler
 app.use((err, req, res, next) => {
