@@ -4,29 +4,27 @@ import React from 'react';
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+        // currentWeek: this.props.currentWeek
+        // ...
+    };
+    this.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    this.shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   }
 
 // { currentWeek } = props
 
   render() {
 
+    for (let i = 0; i < 7; i++) {
+      days.push(<Day key={i} id={i} name={dayNames[i]} />)
+    }
+
+    <div>
+        {days}
+    </div>
 
   }
 }
 
-const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const days = [];
-
-for (let i = 0; i < 7; i++) {
-  days.push(<Day key={i} id={i} name={dayNames[i]} />)
-}
-
-
-
-return (
-    <div>
-        {days}
-    </div>
-)
+default export Calendar;
