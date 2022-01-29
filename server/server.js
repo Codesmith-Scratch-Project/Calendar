@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 //require routers
-const eventRouter = require(path.resolve(__dirname, './routes/events.js'));
+const eventRouter = require(path.resolve(__dirname, './routes/events'));
 
 //Handles parsing request body
 app.use(express.json());
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 //route handlers
-app.use('/api/calendar/:userid');
+app.use('/api', eventRouter);
 
 //Global error handler
 app.use((err, req, res, next) => {
