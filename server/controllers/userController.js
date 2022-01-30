@@ -1,5 +1,5 @@
 const userController = {};
-const models = require('../models/model')
+const models = require('../models/Model.js')
 
 userController.addEvent = (req, res, next) => {
   //need to read request body and create on mongodb.
