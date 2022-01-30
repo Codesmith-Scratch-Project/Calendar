@@ -1,7 +1,9 @@
 const models = require('../models/Model.js')
 const CryptoJS = require("crypto-js");
+const models = require('../models/Model.js')
 
 const userController = {};
+
 
 userController.addEvent = (req, res, next) => {
   //Store user id to req.query
