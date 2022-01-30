@@ -2,3 +2,21 @@ body {
     background-color: rgb(36, 36, 88);
     color: lightyellow;
 }
+
+.calendar {
+    border: 1px white dotted;
+    display: flex;
+    flex-direction: row;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+}
+
+.event {
+    display: flex;
+    flex-direction: column;
+    border: 1px red solid;
+}
+
