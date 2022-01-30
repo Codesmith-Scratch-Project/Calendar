@@ -32,7 +32,6 @@ userController.getEvents = (req, res, next) => {
   //grab data from mongo db
   // console.log('req query', req.query)
 
-
   const urlId = req.params.userid;
 
   //find all events regarding user id
