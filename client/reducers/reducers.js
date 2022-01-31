@@ -1,4 +1,4 @@
-import { ADD_EVENT, GET_EVENTS } from "../actions/actions";
+import { ADD_EVENT, DELETE_EVENT, GET_EVENTS } from "../actions/actions";
 import 'regenerator-runtime/runtime'
 import "core-js/stable";
 
@@ -19,6 +19,8 @@ const reducer = (state = initialState, action) => {
       return {...state, events : action.payload}
     case 'ADD_EVENT':
       return {...state, events : [...state.events, action.payload], newEvent : action.payload }
+    case "DELETE_EVENT":
+        return { events : state.events.filter((event) => event !== action.payload) };
     default: {
       return state;
     }
@@ -66,6 +68,19 @@ export const addEventServ = (newEvent) => async (dispatch) => {
 
 }
 
+export const deleteEventServ = (event) => async (dispatch) => {
+
+  return fetch(`/calendar:${event.eventID}`, {
+    method: 'DELETE'
+  })
+  .then(res => {
+    console.log(res.text);
+    return res;
+  })
+  .then(res => dispatch(DELETE_EVENT(event)))
+  .catch(err => console.log(err))
+
+}
 
 
 //POST localhost:3000/calendar/create

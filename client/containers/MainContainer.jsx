@@ -14,7 +14,7 @@ export default class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => store.dispatch(getEventsServ()), 1000);
+    setTimeout(() => store.dispatch(getEventsServ()), 1);
   }
 
   render() {

@@ -18,13 +18,13 @@ router.get('/calendar', (req, res) => {
   }
 );
 
-// router.get('/calendar/:userid',
-// userController.getEvents,
-// (req, res) => {
-//   console.log(res.locals.return);
-//   return res.status(200).json(res.locals.return)
-//   }
-// );
+router.get('/calendar/:userid',
+userController.getEvents,
+(req, res) => {
+  console.log(res.locals.return);
+  return res.status(200).json(res.locals.return)
+  }
+);
 
 router.put('/calendar/:eventid',
 userController.updateEvent,
