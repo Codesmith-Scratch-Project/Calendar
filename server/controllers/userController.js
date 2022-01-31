@@ -41,11 +41,10 @@ userController.getEvents = (req, res, next) => {
     //Send to client an array of events related to user.
     data.forEach((ele) => {
       const bytes = CryptoJS.AES.decrypt(ele.event, 'secret key 123');
-      const originalText = bytes.toString(CryptoJS.enc.Utf8);
-      const parseddata = JSON.parse(originalText);
+      const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
       const obj = {
         eventid : ele._id,
-        ...parseddata
+        ...decryptedData
       }
       output.push(obj);
     })
@@ -67,11 +66,10 @@ userController.updateEvent = (req, res, next) => {
   .then(data => {
      //Decrypt the related event and parses the data for modification
      const bytes = CryptoJS.AES.decrypt(data.event, 'secret key 123');
-     const originalText = bytes.toString(CryptoJS.enc.Utf8);
-     const parseddata = JSON.parse(originalText);
+     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
      //Create object storing the updated information.
      const obj = {
-       ...parseddata,
+       ...decryptedData,
        ...req.query
      };
      //Encrypt the updated information and updates the mongo collection w/ the new encryption
