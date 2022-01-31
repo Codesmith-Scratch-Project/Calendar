@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 //require routers
 const eventRouter = require(path.resolve(__dirname, './routes/events'));
+const accountRouter = require(path.resolve(__dirname, './routes/account'));
 
 //Handles parsing request body
 app.use(express.json());
@@ -20,7 +21,8 @@ app.get('/', (req, res) => {
 });
 
 //route handlers
-app.use('/api', eventRouter);
+app.use('/', eventRouter);
+app.use('/', accountRouter);
 
 //Global error handler
 app.use((err, req, res, next) => {
