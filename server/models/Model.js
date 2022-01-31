@@ -14,7 +14,7 @@ mongoose.connect(MONGO_URI, {
 
 const Schema = mongoose.Schema;
 
-// sets a schema for the 'species' collection
+
 const calendarSchema = new Schema({
   _eventID: String,
   userID: Number,
@@ -28,6 +28,15 @@ const calendarSchema = new Schema({
 
 const Calendar = mongoose.model('main', calendarSchema);
 
+
+const encryptSchema = new Schema({
+  userID: Number,
+  event: String
+});
+
+const Encrypt = mongoose.model('encrypt', encryptSchema);
+
 module.exports = {
-  Calendar
+  Calendar,
+  Encrypt
 };
