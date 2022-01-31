@@ -1,6 +1,6 @@
 const models = require('../models/Model.js')
 const CryptoJS = require("crypto-js");
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const userController = {};
 
@@ -109,11 +109,14 @@ userController.deleteEvent = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   //bcrypt password and create user
-  const saltRounds = 10;
   const {username, password} = req.body
-  bcrypt.hash(password, saltRounds)
+  const hashedpw = password.slice(29);
+  const salt = password.slice(0, 29);
+  const random = Math.floor(Math.random() * 1000);
+  bcrypt.hash(hashedpw, salt)
     .then(hash =>{
-      models.User.create({username: username, password: hash},
+      console.log(hash);
+      models.User.create({userID: random, username: username, password: hash},
       (err, data) => {
         if(err){
           return next({log: 'Error in creating account'}, res.sendStatus(400));

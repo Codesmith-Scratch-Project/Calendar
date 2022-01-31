@@ -37,6 +37,7 @@ const encryptSchema = new Schema({
 const Encrypt = mongoose.model('encrypt', encryptSchema);
 
 const userSchema = new Schema({
+  userID: Number,
   username: {type: String, required: true, unique: true},
   password: {type: String, required: true}
 })
