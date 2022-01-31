@@ -1,5 +1,6 @@
 const models = require('../models/Model.js')
 const CryptoJS = require("crypto-js");
+const bcrypt = require('bcrypt');
 
 const userController = {};
 
@@ -104,5 +105,35 @@ userController.deleteEvent = (req, res, next) => {
       return next();
     })
 }
+
+userController.createUser = (req, res, next) => {
+  //bcrypt password and create user
+  const saltRounds = 10;
+  const {username, password} = req.body
+  bcrypt.hash(password, saltRounds)
+    .then(hash =>{
+      models.User.create({username: username, password: hash},
+      (err, data) => {
+        if(err){
+          return next({log: 'Error in creating account'}, res.sendStatus(400));
+        }
+        return next();
+        }
+      )
+    })
+    .catch(err => console.log(err));
+}
+
+userController.verifyUser = (req, res, next) => {
+  const {username, password} = req.body
+  models.User.findOne({username: req.body.username, password: req.body.password}, 
+    (err, user) => {
+    if (err) {
+      next({err: 'Error in verifying user'});
+    }
+      return next();
+    }
+  )
+};
 
 module.exports = userController;
