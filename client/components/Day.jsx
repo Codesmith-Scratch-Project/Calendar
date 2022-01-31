@@ -36,7 +36,7 @@ function randomLocation() {
 
 function randomEventGen() {
     const events = [];
-    const amount = 5;
+    const amount = Math.floor(Math.random() * 5);
     for (let i = 0; i < amount; i++) {
         events.push({
             name: randomString(),
@@ -65,9 +65,6 @@ const Day = (props) => {
     return (
         <div className="day">
             {name}
-            {/* <Event name={'Coffee'} timeStart={'January 29, 2022 02:00:00'} timeEnd={'January 29, 2022 03:00:00'} location={'home'} />
-            <Event name={'something'} timeStart={'January 29, 2022 03:00:00'} timeEnd={'January 29, 2022 04:00:00'} location={'work'} />
-            <Event name={'Coding'} timeStart={'January 29, 2022 06:00:00'} timeEnd={'January 29, 2022 07:00:00'} location={'home'} /> */}
             {eventComponents}
         </div>
     )
