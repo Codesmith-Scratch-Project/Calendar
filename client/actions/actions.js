@@ -6,3 +6,4 @@ const ADD_EVENT = (event) => {
 const GET_EVENTS = () => {
     return({ type: 'GET_EVENTS'})
 }
+
