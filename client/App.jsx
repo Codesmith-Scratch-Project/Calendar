@@ -11,7 +11,6 @@ import Event from './components/Event.jsx';
 import Day from './components/Day.jsx';
 import New from './components/test.jsx';
 
-
 // eventID: 1,
 // userID: 123,
 // username: "mk",

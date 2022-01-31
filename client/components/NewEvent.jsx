@@ -98,3 +98,5 @@ export default class NewEvent extends React.Component {
     );
   } 
 }
+
+export default NewEvent;

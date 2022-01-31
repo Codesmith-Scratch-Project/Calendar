@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
     case 'GET_EVENTS': 
       return {...state, events : action.payload}
     case 'ADD_EVENT':
-      return {...state, events : [...state.events, action.payload]}
+      return {...state, events : [...state.events, action.payload], newEvent : action.payload }
     default: {
       return state;
     }
@@ -23,12 +23,18 @@ const reducer = (state = initialState, action) => {
   
   };
 
-const getEvents = () => async (dispatch, getState) => {
+function addEventController (event){
+  dispatch(ADD_EVENT(event));
+  addEventServ()
+}
+
+const getEventsServ = () => async (dispatch, getState) => {
   const events = await fetch('http://localhost:3000/calendar/').then(res => res.json())
   dispatch(setEvents(events))
 }
 
-const addEvent = () => async (dispatch, getState) => {
+const addEventServ = () => async (dispatch, getState) => {
+  
   const event = getState().newEvent;
   await fetch('http://localhost:3000/calendar/create', {
     method: 'POST',
@@ -43,7 +49,6 @@ const addEvent = () => async (dispatch, getState) => {
 }
 
 
-//set up the add event thing to update the state as well!
 
 //POST localhost:3000/calendar/create
 //GET localhost:3000/calendar/
