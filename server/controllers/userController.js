@@ -1,6 +1,6 @@
 const models = require('../models/Model.js')
 const CryptoJS = require("crypto-js");
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 const userController = {};
 
