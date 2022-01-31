@@ -9,13 +9,22 @@ userController.addEvent,
   }
 );
 
-router.get('/calendar/:userid',
-userController.getEvents,
-(req, res) => {
-  console.log(res.locals.return);
-  return res.status(200).json(res.locals.return)
+
+const fakeData = [{eventName: 'wefeff', startTime: '2022-01-14T14:25', endTime: '2022-01-22T14:25', details: 'wef', location: 'wfe'},
+{eventName: 'event2', startTime: '2022-01-14T14:25', endTime: '2022-01-22T14:25', details: 'wef', location: 'wfe'}]
+
+router.get('/calendar', (req, res) => {
+  return res.status(200).json(fakeData);
   }
 );
+
+// router.get('/calendar/:userid',
+// userController.getEvents,
+// (req, res) => {
+//   console.log(res.locals.return);
+//   return res.status(200).json(res.locals.return)
+//   }
+// );
 
 router.put('/calendar/:eventid',
 userController.updateEvent,

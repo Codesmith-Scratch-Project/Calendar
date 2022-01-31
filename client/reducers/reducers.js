@@ -1,3 +1,8 @@
+import { ADD_EVENT, GET_EVENTS } from "../actions/actions";
+import 'regenerator-runtime/runtime'
+import "core-js/stable";
+
+
 const initialState = {
   counter: 0,
   events: [],
@@ -23,29 +28,42 @@ const reducer = (state = initialState, action) => {
   
   };
 
-function addEventController (event){
-  dispatch(ADD_EVENT(event));
-  addEventServ()
-}
+// export function addEventController (event){
+//   dispatch({type: 'ADD_EVENT', payload: event});
+//   addEventServ()
+// }
 
-const getEventsServ = () => async (dispatch, getState) => {
-  const events = await fetch('http://localhost:3000/calendar/').then(res => res.json())
-  dispatch(setEvents(events))
-}
-
-const addEventServ = () => async (dispatch, getState) => {
+export const getEventsServ = () => async (dispatch, getState) => {
+  console.log('getting events')
+  return fetch('/calendar')
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+    return res;
+  })
+  .then(res => dispatch(GET_EVENTS(res)))
   
-  const event = getState().newEvent;
-  await fetch('http://localhost:3000/calendar/create', {
+}
+
+export const addEventServ = (newEvent) => async (dispatch) => {
+  console.log('in the async func')
+  
+  
+  return fetch('/calendar/create', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(event)
+    body: JSON.stringify(newEvent)
   })
-  
-  alert('you made a POST request!!!!')
+  .then(res => {
+    console.log(res.locals);
+    return res;
+  })
+  .then(res => dispatch(ADD_EVENT(newEvent)))
+  .catch(err => console.log(err))
+
 }
 
 

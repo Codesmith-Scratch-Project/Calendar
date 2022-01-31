@@ -3,8 +3,7 @@ export const ADD_EVENT = (event) => {
 }
 
 
-export const GET_EVENTS = () => {
-    return({ type: 'GET_EVENTS'})
+export const GET_EVENTS = (res) => {
+    return({ type: 'GET_EVENTS', payload: res})
 }
 
-export default ADD_EVENT;

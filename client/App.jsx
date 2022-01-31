@@ -12,6 +12,8 @@ import Day from './components/Day.jsx';
 import New from './components/test.jsx';
 import NavContainer from './containers/NavContainer.jsx';
 import MainContainer from './containers/MainContainer.jsx';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 
 
@@ -71,11 +73,10 @@ store.dispatch({
 
 
 ReactDOM.render(
-<Provider store={store}>
-
-
-<App />
-</Provider>,
+  (
+  <Provider store={store}>
+  <App />
+  </Provider>),
 
 document.getElementById('root'));
 
