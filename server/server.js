@@ -4,6 +4,7 @@ const path = require('path');
 const PORT = 3000;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 //require routers
 const eventRouter = require(path.resolve(__dirname, './routes/events'));
@@ -12,6 +13,7 @@ const accountRouter = require(path.resolve(__dirname, './routes/account'));
 //Handles parsing request body
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // statically serve everything in the build folder on the route '/build'
 app.use(express.static(path.join(__dirname, '../build')));
