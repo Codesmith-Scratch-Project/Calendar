@@ -4,6 +4,7 @@ const CryptoJS = require("crypto-js");
 
 const userController = {};
 
+
 userController.addEvent = (req, res, next) => {
   //Store user id to req.query
   const userid = req.query.userid;
