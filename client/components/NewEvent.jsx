@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
+import { ADD_EVENT } from '../actions/actions.js';
+import { Provider, useDispatch, connect } from 'react-redux'
+import { applyMiddleware, createStore, compose } from 'redux'
+import { store } from '../App.jsx';
 
-export default class NewEvent extends React.Component {
+// const dispatch = useDispatch();
+
+const mapDispatchToProps = dispatch => (
+  {
+    addEvent: (event) => dispatch(ADD_EVENT(event))
+  }
+)
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {addEvent: (event) => dispatch(ADD_EVENT(event))}
+// }
+
+class NewEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = 
@@ -35,6 +51,7 @@ export default class NewEvent extends React.Component {
       return;
     }
     console.log(this.state);
+    this.props.addEvent(this.state);
   };
 
   handleChange( { target } ) {
@@ -98,3 +115,6 @@ export default class NewEvent extends React.Component {
     );
   } 
 }
+
+
+export default connect(null, mapDispatchToProps)(NewEvent)

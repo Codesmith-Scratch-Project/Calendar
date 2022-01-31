@@ -19,12 +19,9 @@
     "author": "Tassled Wobbegong",
     "license": "ISC",
     "dependencies": {
-<<<<<<< HEAD
         "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
-=======
         "crypto-js": "^4.1.1",
->>>>>>> dev
         "express": "^4.12.3",
         "html-webpack-plugin": "^5.5.0",
         "mongoose": "^6.1.8",
