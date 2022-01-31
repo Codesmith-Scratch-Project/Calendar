@@ -1,6 +1,20 @@
 body {
     background-color: rgb(36, 36, 88);
     color: lightyellow;
+    font-family: sans-serif;
+}
+
+div#form {
+    width: 300px;
+    font-size: 1.1rem;
+    background-color: white;
+    color: #222222;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+form {
 }
 
 .calendar {
@@ -13,6 +27,51 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+div#createEvent {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+input {
+    font-family: sans-serif;
+    font-size: 1em;
+    height: 1.7em;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+div#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
+
+
+
+input[type=button], input[type=submit] {
+    height: 2.3em;
+    width: 40%;
+    margin-left: 10px;
+}
+
+
+input[type=button]:hover, input[type=submit]:hover {
+    cursor: pointer;
+}
+
+input[type=submit] {
+    background-color: rgb(53, 53, 211);
+    color: white;
+}
+
+input#eventName {
+    background-image: none !important;
+}
+
 
 .event {
     display: flex;
