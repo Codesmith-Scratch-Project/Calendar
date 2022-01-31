@@ -14,7 +14,19 @@ div#form {
     border-radius: 10px;
 }
 
-form {
+#form {
+    height: fit-content;
+}
+
+#main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#nav-container {
+    display: flex;
+    justify-content: center;
 }
 
 .calendar {
@@ -26,6 +38,7 @@ form {
 .day {
     display: flex;
     flex-direction: column;
+    width: 20%;
 }
 
 div#createEvent {
