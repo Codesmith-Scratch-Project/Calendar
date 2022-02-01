@@ -98,6 +98,7 @@ userController.updateEvent = (req, res, next) => {
 
 //Locates eventid in mongoose and deletes the entire event
 userController.deleteEvent = (req, res, next) => {
+  console.log(`Event to be deleted: ${req.params.eventid}`);
   const eventid = req.params.eventid
   models.Encrypt.findOneAndDelete({eventid: eventid},
     (err, data) =>{

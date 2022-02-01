@@ -68,16 +68,17 @@ export const addEventServ = (newEvent) => async (dispatch) => {
 
 }
 
-export const deleteEventServ = (event) => async (dispatch) => {
-
-  return fetch(`/calendar:${event.eventID}`, {
+export const deleteEventServ = (eventid) => async (dispatch) => {
+  
+console.log('before fetch')
+  return fetch(`/calendar/${eventid}`, {
     method: 'DELETE'
   })
   .then(res => {
     console.log(res.text);
     return res;
   })
-  .then(res => dispatch(DELETE_EVENT(event)))
+  .then(res => dispatch(DELETE_EVENT(eventid)))
   .catch(err => console.log(err))
 
 }
