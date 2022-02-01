@@ -44,8 +44,16 @@ const userSchema = new Schema({
 
 const User = mongoose.model('user', userSchema);
 
+const sessionSchema = new Schema({
+  cookieID: {type: String, required: true, unique: true},
+  createdAt: {type: Date, expires: 600, default: Date.now }
+})
+
+const Session = mongoose.model('session', sessionSchema);
+
 module.exports = {
   Calendar,
   Encrypt,
-  User
+  User,
+  Session
 };

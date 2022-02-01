@@ -17,11 +17,18 @@ userController.createUser,
 
 router.post('/auth/login',
 userController.verifyUser,
+cookieController.setSSIDCookie,
 (req, res) => {
   if (res.locals.successfulLogin === true) {
     return res.send('Login was successful!')
   }
-  
+})
+
+router.post('/auth/logOut',
+userController.logOut,
+cookieController.clearCookie,
+(req, res) => {
+  return res.status(200).redirect('http://localhost:3000/auth/login');
 })
 
 module.exports = router;
