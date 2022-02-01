@@ -44,8 +44,6 @@ class App extends React.Component {
       <div>
         <NavContainer />
         <MainContainer />
-        {/* <Day /> */}
-        {/* <Event name={'Coffee'} timeStart={'January 29, 2022 02:00:00'} timeEnd={'January 29, 2022 03:00:00'} location={'home'} /> */}
       </div>
     );
   }

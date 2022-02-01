@@ -19,9 +19,11 @@ export default class MainContainer extends React.Component {
 
   render() {
     return (
-      <div id="main-container">
+      <div>
         <NewEvent />
-        <Calendar />
+        <div id="main-container">
+          <Calendar />
+        </div>
       </div>
     );
   }

@@ -9,62 +9,20 @@ import Event from './Event.jsx';
 *   children: Event
 */
 
-function randomString() {
-    return (Math.random() + 1).toString(12).substring(2);
-}
-
-// Jan 23 (sunday) - Jan 29 (saturday)
-function randomDate() {
-    // const days = ['January 23, 2022', 'January 24, 2022', 'January 25, 2022',
-    //  'January 26, 2022', 'January 27, 2022', 'January 28, 2022', 'January 29, 2022'];
-     const days = ['January 23, 2022'];
-    const times = ['01:00:00', '03:00:00', '08:00:00', '12:00:00', '16:00:00', '21:00:00'];
-    // return `${days[Math.floor(Math.random() * days.length)]} ${times[Math.floor(Math.random() * times.length)]}`;
-    return `${days[0]} ${times[Math.floor(Math.random() * times.length)]}`;
-}
-
-function randomLocation() {
-    let roll = Math.random();
-    if (roll < .3) {
-        return 'Outdoors';
-    } else if (roll < .6) {
-        return 'Home';
-    } else {
-        return 'Nowhere but everywhere';
-    }
-}
-
-function randomEventGen() {
-    const events = [];
-    const amount = Math.floor(Math.random() * 5);
-    for (let i = 0; i < amount; i++) {
-        events.push({
-            name: randomString(),
-            timeStart: randomDate(),
-            timeEnd: randomDate(),
-            location: randomLocation()
-        })
-    }
-    console.log(events);
-    return events;
-}
-
-
-
 const Day = (props) => {
-    const {key, id, name, events} = props;
-    
+    const {name, date, events} = props;
     const eventMaker = (event) => {
         return <Event
             {...event}
         />
     }
-
-    const eventComponents = randomEventGen().map((event) => eventMaker(event));
+    const eventComponents = events.map((event) => eventMaker(event));
 
     return (
         <div className="day">
-            {name}
+            <div className="day-label"> 
+                {name} {date}
+            </div>
             {eventComponents}
         </div>
     )

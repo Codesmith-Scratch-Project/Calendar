@@ -5,7 +5,7 @@ import "core-js/stable";
 
 const initialState = {
   counter: 0,
-  events: [],
+  events: [event1, event2, event3, event4],
   newEvent: {}
 }
 

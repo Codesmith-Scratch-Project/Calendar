@@ -1,5 +1,6 @@
 import React from 'react';
 import Day from './Day.jsx';
+import { connect } from 'react-redux';
 
 /**
 * Calendar Component - will be a child of MainContainer
@@ -9,74 +10,71 @@ import Day from './Day.jsx';
 *   children: Day
 */
 
-
-// mock data
-// Jan 23 (sunday) - Jan 29 (saturday)
-// const dates = {
-//   coffee: {
-//     start: new Date('January 29, 2022 02:00:00'),
-//     end: new Date('January 29, 2022 03:00:00')
-//   },
-//   coding: {
-//     start: new Date('January 29, 2022 03:00:00'),
-//     end: new Date('January 29, 2022 04:30:00')
-//   }
-// }
-
-// events: [
-//   {
-//     eventID: 1,
-//     userID: 123,
-//     username: "mk",
-//     name: "Coffee Break",
-//     timeStart: dates.coffee.start,
-//     timeEnd: dates.coffee.end,
-//     details: 'pop a caffeine pill and take a nap',
-//     location: 'home',
-//   },
-//   {
-//     eventID: 2,
-//     userID: 123,
-//     username: "mk",
-//     name: "Coding Grind",
-//     timeStart: dates.coding.start,
-//     timeEnd: dates.coding.end,
-//     details: 'gotta work on react components',
-//     location: 'home',
-//   },
-// ]
+const mapStateToProps = state => ({
+  counter: state.counter,
+  events: state.events
+})
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-        // currentWeek: this.props.currentWeek
-    };
+    this.weekStart = 23;
+    this.weekEnd = 29;
     this.dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     this.shortDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    // this.dayDict = {
+    //   'Sun': 'Sunday',
+    //   'Mon': 'Monday',
+    //   'Tues': 'Tuesday',
+    //   'Wed': 'Wednesday',
+    //   'Thurs': 'Thursday',
+    //   'Fri': 'Friday',
+    //   'Sat': 'Saturday',
+    // }
+    // this.numDayDict = {
+    //   '0': 'Sunday',
+    //   '1': 'Monday',
+    //   '2': 'Tuesday',
+    //   '3': 'Wednesday',
+    //   '4': 'Thursday',
+    //   '5': 'Friday',
+    //   '6': 'Saturday',
+    // }
   }
 
-// { currentWeek } = props
-// for (let i = 0; i < 7; i++) {
-//   days.push(<Day key={i} id={i} name={dayNames[i]} />)
-// }
-
   render() {
-    const days = [];
-    
-    for (let i = 0; i < 7; i++) {
-      days.push(<Day name={this.dayNames[i]}/>);
-    }
-    return (
 
+    const dayEvents = {
+      '0': [],
+      '1': [],
+      '2': [],
+      '3': [],
+      '4': [],
+      '5': [],
+      '6': []
+    }
+    console.log('Calendar events: ', this.props.events);
+    if (this.props.events.length > 0) {
+      const date = new Date(this.props.events[0].startTime); 
+      this.props.events.forEach((event) => {
+        const i = new Date(event.startTime).getDay();
+        dayEvents[i].push(event);
+      })
+    }
+    const days = []; 
+    
+    // passing in all events to each day, even if event doesn't apply to date
+    // in Day component, use date prop to filter through relevant events for that day 
+    for (let i = 0; i < 7; i++) {
+      days.push(<Day name={this.dayNames[i]} date={this.weekStart+i} events={dayEvents[i]}/>);
+    }
+
+    return (
       <div className="calendar">
         {days}
-        {/* <Day name={"sunday"}/>
-        <Day name={"monday"}/>
-        <Day name={"tuesday"}/> */}
       </div>
     )
   }
 }
 
-export default Calendar;
+export default connect(mapStateToProps, null)(Calendar);
