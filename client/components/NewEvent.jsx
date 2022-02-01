@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import { ADD_EVENT } from '../actions/actions.js';
 import { Provider, useDispatch, connect } from 'react-redux'
 import { applyMiddleware, createStore, compose } from 'redux'
-import { store } from '../App.jsx';
+import  store  from '../App.jsx';
+import { addEventServ } from '../reducers/reducers.js';
+
 
 // const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch => (
-  {
-    addEvent: (event) => dispatch(ADD_EVENT(event))
-  }
-)
+// const mapDispatchToProps = dispatch => (
+//   {
+//     addEvent: (event) => dispatch(ADD_EVENT(event))
+//   }
+// )
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {addEvent: (event) => dispatch(ADD_EVENT(event))}
-// }
+
 
 class NewEvent extends React.Component {
   constructor(props) {
@@ -59,7 +59,10 @@ class NewEvent extends React.Component {
       return;
     }
     console.log(this.state);
-    this.props.addEvent(this.state);
+    store.dispatch(addEventServ(this.state));
+    // this.props.addEvent(this.state);
+    console.log('time to call add event')
+    // addEventServ()
   };
 
   handleChange( { target } ) {
@@ -129,4 +132,5 @@ class NewEvent extends React.Component {
 }
 
 
-export default connect(null, mapDispatchToProps)(NewEvent)
+// export default connect(null, mapDispatchToProps)(NewEvent)
+export default NewEvent;

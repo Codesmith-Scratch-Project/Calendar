@@ -6,6 +6,7 @@ const userController = {};
 
 
 userController.addEvent = (req, res, next) => {
+  console.log('req.body = ', req.body);
   //Store user id to req.query
   const userid = req.query.userid;
   const {username, name, timestart, timeend, details, location} = req.query

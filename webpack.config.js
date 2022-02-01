@@ -4,7 +4,7 @@ const { env } = require('process')
 
 module.exports = {
   mode: env.NODE_ENV,
-  entry: { src: './client/App.jsx' },
+  entry:  ['regenerator-runtime/runtime.js', './client/App.jsx'],  
   plugins: [new HtmlWebpackPlugin({
     title: 'Development',
     template: './client/index.html'

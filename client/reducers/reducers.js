@@ -1,30 +1,7 @@
-const event1 = {
-  eventName: "Art Exhibit",
-  location: "DTLA",
-  startTime: "2022-01-23T12:00",
-  endTime: "2022-01-23T13:00",
-}
+import { ADD_EVENT, DELETE_EVENT, GET_EVENTS } from "../actions/actions";
+import 'regenerator-runtime/runtime'
+import "core-js/stable";
 
-const event2 = {
-  eventName: "Luncheon",
-  location: "Tofu House",
-  startTime: "2022-01-24T13:00",
-  endTime: "2022-01-24T15:00",
-}
-
-const event3 = {
-  eventName: "Concert",
-  location: "The Roxy",
-  startTime: "2022-01-25T16:00",
-  endTime: "2022-01-25T18:00",
-}
-
-const event4 = {
-  eventName: "Dinner",
-  location: "Don Izakaya",
-  startTime: "2022-01-27T18:00",
-  endTime: "2022-01-27T21:00",
-}
 
 const initialState = {
   counter: 0,
@@ -42,6 +19,8 @@ const reducer = (state = initialState, action) => {
       return {...state, events : action.payload}
     case 'ADD_EVENT':
       return {...state, events : [...state.events, action.payload], newEvent : action.payload }
+    case "DELETE_EVENT":
+        return { events : state.events.filter((event) => event !== action.payload) };
     default: {
       return state;
     }
@@ -51,31 +30,57 @@ const reducer = (state = initialState, action) => {
   
   };
 
-function addEventController (event){
-  dispatch(ADD_EVENT(event));
-  addEventServ()
-}
+// export function addEventController (event){
+//   dispatch({type: 'ADD_EVENT', payload: event});
+//   addEventServ()
+// }
 
-const getEventsServ = () => async (dispatch, getState) => {
-  const events = await fetch('http://localhost:3000/calendar/').then(res => res.json())
-  dispatch(setEvents(events))
-}
-
-const addEventServ = () => async (dispatch, getState) => {
+export const getEventsServ = () => async (dispatch, getState) => {
+  console.log('getting events')
+  return fetch('/calendar')
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+    return res;
+  })
+  .then(res => dispatch(GET_EVENTS(res)))
   
-  const event = getState().newEvent;
-  await fetch('http://localhost:3000/calendar/create', {
+}
+
+export const addEventServ = (newEvent) => async (dispatch) => {
+  console.log('in the async func')
+  
+  
+  return fetch('/calendar/create', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(event)
+    body: JSON.stringify(newEvent)
   })
-  
-  alert('you made a POST request!!!!')
+  .then(res => {
+    console.log(res.locals);
+    return res;
+  })
+  .then(res => dispatch(ADD_EVENT(newEvent)))
+  .catch(err => console.log(err))
+
 }
 
+export const deleteEventServ = (event) => async (dispatch) => {
+
+  return fetch(`/calendar:${event.eventID}`, {
+    method: 'DELETE'
+  })
+  .then(res => {
+    console.log(res.text);
+    return res;
+  })
+  .then(res => dispatch(DELETE_EVENT(event)))
+  .catch(err => console.log(err))
+
+}
 
 
 //POST localhost:3000/calendar/create
