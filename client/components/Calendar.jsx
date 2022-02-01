@@ -55,10 +55,11 @@ class Calendar extends React.Component {
     }
     console.log('Calendar events: ', this.props.events);
     if (this.props.events.length > 0) {
-      const date = new Date(this.props.events[0].startTime); 
+      const date = new Date(this.props.events[0].start); 
       this.props.events.forEach((event) => {
-        const i = new Date(event.startTime).getDay();
-        dayEvents[i].push(event);
+        console.log(event);
+        const i = new Date(event.start).getDay();
+        if (typeof i === 'number' && i >= 0 && i <= 6) dayEvents[i].push(event);
       })
     }
     const days = []; 

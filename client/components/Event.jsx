@@ -8,15 +8,15 @@ import React, { useState } from 'react';
 */
 
 const Event = (props) => {
-    const {eventName, startTime, endTime, details, location } = props;
+    const {name, start, end, details, location } = props;
     // need to convert timeStart and timeEnd? 
-    const start = (new Date(startTime));
-    const end = (new Date(endTime));
-    const startStr = `${start.toTimeString().split(' ')[0]}`;
-    const endStr = `${end.toTimeString().split(' ')[0]}`;
+    const startTime = (new Date(start));
+    const endTime = (new Date(end));
+    const startStr = `${startTime.toTimeString().split(' ')[0]}`;
+    const endStr = `${endTime.toTimeString().split(' ')[0]}`;
     return (
         <div className="event">
-            <p>{eventName}</p>
+            <p>{name}</p>
             <p>{startStr} - {endStr} </p>
             {/* <p>{location}</p> */}
         </div>

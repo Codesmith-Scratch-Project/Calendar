@@ -5,7 +5,7 @@ import "core-js/stable";
 
 const initialState = {
   counter: 0,
-  events: [event1, event2, event3, event4],
+  events: [],
   newEvent: {}
 }
 
@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
 
 export const getEventsServ = () => async (dispatch, getState) => {
   console.log('getting events')
-  return fetch('/calendar')
+  return fetch('/calendar/123')
   .then(res => res.json())
   .then(res => {
     console.log(res);
@@ -51,7 +51,7 @@ export const addEventServ = (newEvent) => async (dispatch) => {
   console.log('in the async func')
   
   
-  return fetch('/calendar/create', {
+  return fetch('/calendar/123', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

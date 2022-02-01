@@ -8,20 +8,20 @@ const userController = {};
 userController.addEvent = (req, res, next) => {
   console.log('req.body = ', req.body);
   //Store user id to req.query
-  const userid = req.query.userid;
-  const {username, name, timestart, timeend, details, location} = req.query
+  const userid = req.params.userid;
+  const {username, name, start, end, details, location} = req.body;
   //Create new object w/o userid to be encrypted
   const obj = {username: username,
     name: name,
-    timestart: timestart,
-    timeend: timeend, 
+    start: start,
+    end: end, 
     details: details, 
     location: location
   };
   //encrypt entire object
   const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(obj), 'secret key 123').toString();
   //Create event w/ with :userid property and encrypted info as value in "event" key.
-  models.Encrypt.create({userID: userid, event: ciphertext},
+  models.Encrypt.create({userID: Number(userid), event: ciphertext},
     (err, data) => {
       if(err){
         return next({log: 'Error in creating events'}, res.sendStatus(400));
@@ -36,7 +36,7 @@ userController.getEvents = (req, res, next) => {
   //save user id in variable
   const urlId = req.params.userid;
   //find all events regarding user id
-  models.Encrypt.find({userID: urlId})
+  models.Encrypt.find({userID: Number(urlId)})
   .then(data => {
     //Empty array to hold each event as an object
     const output = [];

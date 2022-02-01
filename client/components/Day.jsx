@@ -11,6 +11,9 @@ import Event from './Event.jsx';
 
 const Day = (props) => {
     const {name, date, events} = props;
+    events.sort((a, b) => {
+        return new Date(a.start) - new Date(b.start);
+    });
     const eventMaker = (event) => {
         return <Event
             {...event}

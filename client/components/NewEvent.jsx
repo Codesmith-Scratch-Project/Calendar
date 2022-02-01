@@ -21,9 +21,9 @@ class NewEvent extends React.Component {
     super(props);
     this.state = 
     {
-      eventName: '',
-      startTime: '',
-      endTime: '',
+      name: '',
+      start: '',
+      end: '',
       details: '',
       location: '',
       toggle: false
@@ -42,9 +42,9 @@ class NewEvent extends React.Component {
   resetValues() {
     this.setState(
     {
-      eventName: '',
-      startTime: '',
-      endTime: '',
+      name: '',
+      start: '',
+      end: '',
       details: '',
       location: '',
       toggle: false
@@ -53,8 +53,8 @@ class NewEvent extends React.Component {
 
   handleSubmit( event ) {
     event.preventDefault();
-    if (this.state.endTime < this.state.startTime) {
-      this.setState({...this.state, endTime: ''});
+    if (this.state.end < this.state.start) {
+      this.setState({...this.state, end: ''});
       window.alert('End time must be greater than start time');
       return;
     }
@@ -76,29 +76,29 @@ class NewEvent extends React.Component {
         <button name='show' onClick={this.toggle}>Show/Hide</button>
         {this.state.toggle && (
         <form onSubmit={this.handleSubmit}> 
-        <input id='eventName' 
-          name='eventName' 
+        <input id='name' 
+          name='name' 
           placeholder="Add title"
           type='text' 
-          value={this.state.eventName} 
+          value={this.state.name} 
           onChange={this.handleChange} 
           autoComplete="off"
           required
         />
         <div>Start time:</div>
         <input id='startTime' 
-          name='startTime' 
+          name='start' 
           type='datetime-local' 
-          value={this.state.startTime} 
+          value={this.state.start} 
           onChange={this.handleChange} 
           autoComplete="off"
           required
         />
         End time:
         <input id='endTime' 
-          name='endTime' 
+          name='end' 
           type='datetime-local' 
-          value={this.state.endTime} 
+          value={this.state.end} 
           onChange={this.handleChange} 
           autoComplete="off"
           required
