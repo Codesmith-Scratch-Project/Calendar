@@ -21,6 +21,7 @@
     "dependencies": {
         "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.6",
         "core-js": "^3.20.3",
         "crypto-js": "^4.1.1",
         "express": "^4.12.3",
@@ -36,6 +37,7 @@
         "redux-thunk": "^2.4.1",
         "regenerator-runtime": "^0.13.9",
         "save-dev": "^0.0.1-security",
+        "uuid": "^8.3.2",
         "webpack": "^5.57.1",
         "webpack-dev-server": "^4.7.3"
     },

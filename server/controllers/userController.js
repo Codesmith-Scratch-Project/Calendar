@@ -1,6 +1,6 @@
 const models = require('../models/Model.js')
 const CryptoJS = require("crypto-js");
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const userController = {};
 
@@ -110,15 +110,20 @@ userController.deleteEvent = (req, res, next) => {
 
 userController.createUser = (req, res, next) => {
   //bcrypt password and create user
-  const saltRounds = 10;
   const {username, password} = req.body
-  bcrypt.hash(password, saltRounds)
+  const hashedpw = password.slice(29);
+  const salt = password.slice(0, 29);
+  const random = Math.floor(Math.random() * 1000);
+  bcrypt.hash(hashedpw, salt)
     .then(hash =>{
-      models.User.create({username: username, password: hash},
+      console.log(hash);
+      models.User.create({userID: random, username: username, password: hash},
       (err, data) => {
         if(err){
           return next({log: 'Error in creating account'}, res.sendStatus(400));
         }
+        res.locals.user = data;
+        console.log(data);
         return next();
         }
       )
@@ -127,15 +132,63 @@ userController.createUser = (req, res, next) => {
 }
 
 userController.verifyUser = (req, res, next) => {
-  const {username, password} = req.body
-  models.User.findOne({username: req.body.username, password: req.body.password}, 
-    (err, user) => {
-    if (err) {
-      next({err: 'Error in verifying user'});
-    }
+const {username, password} = req.body
+const hashedpw = password.slice(29);
+const salt = password.slice(0, 29);
+bcrypt.hash(hashedpw, salt)
+  .then(hash =>{
+    // console.log(hash);
+    models.User.findOne({username: username, password: hash},
+    (err, data) => {
+      if(err){
+        res.locals.successfulLogin = false;
+        return next({log: 'Error in signing into account'}, res.sendStatus(400));
+      }
+      res.locals.successfulLogin = true;
+      res.locals.user = data
+      // console.log(res.locals.successfulLogin)
+      // console.log(password) 
+      // console.log(data);
       return next();
-    }
-  )
-};
+      }
+    )
+  })
+  .catch(err => console.log(err));
+}
+
+userController.logOut = (req, res, next) => {
+ const { username } = req.query; 
+  models.User.findOne({username: username},
+    (err, data) => {
+      if(err){
+        return next({log: 'Error in logging out'}, res.sendStatus(400));
+      }
+      console.log(data)
+      res.locals.id = data.userID;
+      return next();
+      }
+    )
+}
+
+//Testing bcryptcompare, keeps failing.
+// userController.verifyUser = (req, res, next) => {
+//   const {username, password} = req.body;
+//   models.User.findOne({username: username}, (err, user) =>{
+//     if(err) {
+//       return next('Error in verifying users');
+//     }
+//     bcrypt.compare(password, user.password)
+//       .then(result => {
+//         if(!result) {
+//           console.log('passwords did not match', password, user.password)
+//           return next();
+//         } else{
+//           console.log('passwords matched', password, user.password);
+//           return next();
+//         }
+//       })
+//   })
+// }
+
 
 module.exports = userController;
