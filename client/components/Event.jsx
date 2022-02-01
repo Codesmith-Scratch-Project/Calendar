@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { deleteEventServ } from '../reducers/reducers.js';
+import  store  from '../App.jsx';
 
 /**
 * Event Component - will be a child of Day
@@ -8,17 +10,26 @@ import React, { useState } from 'react';
 */
 
 const Event = (props) => {
-    const {eventName, startTime, endTime, details, location } = props;
+    console.log('in event jsx', props);
+    const {eventid, name, start, end, details, location } = props;
     // need to convert timeStart and timeEnd? 
-    const start = (new Date(startTime));
-    const end = (new Date(endTime));
-    const startStr = `${start.toTimeString().split(' ')[0]}`;
-    const endStr = `${end.toTimeString().split(' ')[0]}`;
+    const startTime = (new Date(start));
+    const endTime = (new Date(end));
+    const startStr = `${startTime.toTimeString().split(' ')[0]}`;
+    const endStr = `${endTime.toTimeString().split(' ')[0]}`;
+// http://localhost:8080/calendar/undefined
+    function handleClick() {
+        console.log('clci');
+        store.dispatch(deleteEventServ(eventid));
+        
+    }
+
     return (
         <div className="event">
-            <p>{eventName}</p>
+            <p>{name}</p>
             <p>{startStr} - {endStr} </p>
             {/* <p>{location}</p> */}
+            <button onClick={handleClick}>x</button>
         </div>
     )
 

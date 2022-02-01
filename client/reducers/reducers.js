@@ -5,7 +5,7 @@ import "core-js/stable";
 
 const initialState = {
   counter: 0,
-  events: [event1, event2, event3, event4],
+  events: [],
   newEvent: {}
 }
 
@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case 'ADD_EVENT':
       return {...state, events : [...state.events, action.payload], newEvent : action.payload }
     case "DELETE_EVENT":
-        return { events : state.events.filter((event) => event !== action.payload) };
+        return { events : state.events.filter((event) => event.eventid !== action.payload) };
     default: {
       return state;
     }
@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
 
 export const getEventsServ = () => async (dispatch, getState) => {
   console.log('getting events')
-  return fetch('/calendar')
+  return fetch('/calendar/123')
   .then(res => res.json())
   .then(res => {
     console.log(res);
@@ -51,7 +51,7 @@ export const addEventServ = (newEvent) => async (dispatch) => {
   console.log('in the async func')
   
   
-  return fetch('/calendar/create', {
+  return fetch('/calendar/123', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -68,16 +68,18 @@ export const addEventServ = (newEvent) => async (dispatch) => {
 
 }
 
-export const deleteEventServ = (event) => async (dispatch) => {
-
-  return fetch(`/calendar:${event.eventID}`, {
+export const deleteEventServ = (eventid) => async (dispatch) => {
+  
+console.log('before fetch')
+console.log('this is the event id variable', eventid)
+  return fetch(`/calendar/${eventid}`, {
     method: 'DELETE'
   })
   .then(res => {
     console.log(res.text);
     return res;
   })
-  .then(res => dispatch(DELETE_EVENT(event)))
+  .then(res => dispatch(DELETE_EVENT(eventid)))
   .catch(err => console.log(err))
 
 }
