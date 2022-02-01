@@ -10,6 +10,11 @@ import Calendar from './components/Calendar.jsx';
 import Event from './components/Event.jsx';
 import Day from './components/Day.jsx';
 import New from './components/test.jsx';
+import NavContainer from './containers/NavContainer.jsx';
+import MainContainer from './containers/MainContainer.jsx';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 
 
 // eventID: 1,
@@ -37,7 +42,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Calendar />
+        <NavContainer />
+        <MainContainer />
         {/* <Day /> */}
         {/* <Event name={'Coffee'} timeStart={'January 29, 2022 02:00:00'} timeEnd={'January 29, 2022 03:00:00'} location={'home'} /> */}
       </div>
@@ -67,10 +73,11 @@ store.dispatch({
 
 
 ReactDOM.render(
-<Provider store={store}>
-
-
-<App />
-</Provider>,
+  (
+  <Provider store={store}>
+  <App />
+  </Provider>),
 
 document.getElementById('root'));
+
+export default store;

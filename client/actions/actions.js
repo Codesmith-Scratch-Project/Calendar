@@ -1,9 +1,12 @@
-const ADD_EVENT = (event) => {
+export const ADD_EVENT = (event) => {
     return({ type: 'ADD_EVENT', payload: event })
 }
 
 
-const GET_EVENTS = () => {
-    return({ type: 'GET_EVENTS'})
+export const GET_EVENTS = (res) => {
+    return({ type: 'GET_EVENTS', payload: res})
 }
 
+export const DELETE_EVENT = (event) => {
+    return ({ type: 'DELETE_EVENT', payload: event})
+}
