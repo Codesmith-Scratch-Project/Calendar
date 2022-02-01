@@ -1,32 +1,24 @@
-import React from 'react';
-import Calendar from './Calendar.jsx';
+import React, { useState } from 'react';
 
 /**
 * Event Component - will be a child of Day
-*   Presentation component display event data, (name )
+*   Presentation component to display event data
 *   props: {userID, username, name, timeStart, timeEnd, details, location}
 *   
 */
 
-// render() {
-//     return (
-//       <div>
-//         <Calendar />
-//         {/* <Day /> */}
-//         {/* <Event name={'Coffee'} timeStart={'January 29, 2022 02:00:00'} timeEnd={'January 29, 2022 03:00:00'} location={'home'} /> */}
-//       </div>
-//     );
-//   }
-
 const Event = (props) => {
-    const { userID, username, name, timeStart, timeEnd, details, location } = props;
+    const {eventName, startTime, endTime, details, location } = props;
     // need to convert timeStart and timeEnd? 
-
+    const start = (new Date(startTime));
+    const end = (new Date(endTime));
+    const startStr = `${start.toTimeString().split(' ')[0]}`;
+    const endStr = `${end.toTimeString().split(' ')[0]}`;
     return (
         <div className="event">
-            <h3>{name}</h3>
-            <p>{timeStart} - {timeEnd} </p>
-            <p>{location}</p>
+            <p>{eventName}</p>
+            <p>{startStr} - {endStr} </p>
+            {/* <p>{location}</p> */}
         </div>
     )
 
