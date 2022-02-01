@@ -105,6 +105,7 @@ userController.deleteEvent = (req, res, next) => {
       if(err){
         return next({log: 'Error in deleting event'}, res.sendStatus(400));
       }
+      res.locals.eventid = eventid;
       return next();
     })
 }

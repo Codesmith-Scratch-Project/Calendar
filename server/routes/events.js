@@ -28,7 +28,7 @@ userController.updateEvent,
 router.delete('/calendar/:eventid',
 userController.deleteEvent,
 (req, res) => {
-  return res.status(200)
+  return res.status(200).json(res.locals.eventid)
   }
 )
 

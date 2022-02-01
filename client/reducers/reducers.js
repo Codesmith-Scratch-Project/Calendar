@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case 'ADD_EVENT':
       return {...state, events : [...state.events, action.payload], newEvent : action.payload }
     case "DELETE_EVENT":
-        return { events : state.events.filter((event) => event !== action.payload) };
+        return { events : state.events.filter((event) => event.eventid !== action.payload) };
     default: {
       return state;
     }
@@ -71,6 +71,7 @@ export const addEventServ = (newEvent) => async (dispatch) => {
 export const deleteEventServ = (eventid) => async (dispatch) => {
   
 console.log('before fetch')
+console.log('this is the event id variable', eventid)
   return fetch(`/calendar/${eventid}`, {
     method: 'DELETE'
   })
